@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "qdoc",
+      "camelcase": "Qdoc",
+      "title": "Tree-sitter parser for QDoc markup",
+      "scope": "source.qdoc",
+      "file-types": [
+        "qdoc"
+      ],
+      "injection-regex": "^qdoc$",
+      "class-name": "Qdoc"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "QDoc grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "veshivas",
+        "email": "venugopalms_no@live.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/veshivas/tree-sitter-qdoc"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}

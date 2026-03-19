@@ -1,0 +1,99 @@
+/*!
+    \class Calculator
+    \brief The Calculator class provides basic arithmetic operations.
+
+    This class demonstrates \b {QDoc markup} with various commands.
+    Use \c {Calculator::add()} to add numbers.
+*/
+
+/*!
+    \fn int Calculator::add(int a, int b)
+    \brief Adds two integers together.
+
+    The parameters \a a and \a b are added and the result is returned.
+
+    \sa multiply(), subtract()
+*/
+
+/*!
+    \property Calculator::precision
+    \brief This property holds the calculation precision.
+*/
+
+/*!
+    \qmltype Button
+    \brief A clickable button component.
+
+    The Button is a \uicontrol {UI control} that responds to clicks.
+*/
+
+/*!
+    \page overview.html
+    \title Calculator Overview
+
+    This is a standalone documentation page.
+*/
+
+/*!
+    \fn void Calculator::configure()
+    \brief Configures the calculator with default settings.
+
+    Follow these steps to configure the calculator:
+
+    \list 1
+    \li Call reset() to clear any previous state.
+    \li Set the precision using the precision property.
+    \li Enable logging if you need diagnostic output.
+    \endlist
+
+    The configuration takes effect immediately after the last step.
+*/
+
+/*!
+    \fn double Calculator::convert(double value, QString from, QString to)
+    \brief Converts a value between two units.
+
+    The following conversions are supported:
+
+    \table 80%
+    \header \li From \li To \li Factor
+    \row \li meters \li feet \li 3.281
+    \row \li {2,1} kg/pounds \li 2.205
+    \endtable
+
+    Returns the converted value, or -1 on error.
+*/
+
+/*!
+    \page license.html
+    \title License Information
+
+    \legalese
+    Copyright (C) 2024 The Qt Company Ltd.
+    All rights reserved. Redistribution and use in source and binary forms
+    are permitted provided that the above copyright notice is retained.
+    \endlegalese
+*/
+
+/*!
+    \fn void Calculator::showDiagram()
+    \brief Displays the calculation diagram.
+
+    \image calc-diagram.png Architecture diagram showing all components.
+
+    Click \inlineimage calc-icon.png {calculator icon} to open the calculator.
+    The diagram shows the full architecture.
+*/
+
+/*!
+    \page raw-example.html
+    \title Raw HTML Example
+
+    Some introductory prose before the raw block.
+
+    \raw HTML
+    <ul><li>Item one</li><li>Item two</li></ul>
+    \endraw
+
+    Some concluding prose after the raw block.
+*/

@@ -1,0 +1,412 @@
+[
+  {
+    "type": "block_command",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "legalese_block",
+          "named": true
+        },
+        {
+          "type": "list_block",
+          "named": true
+        },
+        {
+          "type": "quotation_block",
+          "named": true
+        },
+        {
+          "type": "raw_block",
+          "named": true
+        },
+        {
+          "type": "table_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "block_comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "markup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "command",
+    "named": true,
+    "fields": {
+      "span": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "cell_span",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "command_argument",
+          "named": true
+        },
+        {
+          "type": "command_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block_comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "image_command",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "image_content",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "inline_command",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "inline_command_name",
+          "named": true
+        },
+        {
+          "type": "inline_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "inlineimage_command",
+    "named": true,
+    "fields": {
+      "alt": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "image_alt",
+            "named": true
+          }
+        ]
+      },
+      "filename": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "inline_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "legalese_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "markup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "list_block",
+    "named": true,
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block_argument",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "markup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "markup",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "block_command",
+          "named": true
+        },
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "image_command",
+          "named": true
+        },
+        {
+          "type": "inline_command",
+          "named": true
+        },
+        {
+          "type": "inlineimage_command",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quotation_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "markup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "raw_block",
+    "named": true,
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block_argument",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "raw_content_chunk",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_block",
+    "named": true,
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block_argument",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "markup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "*/",
+    "named": false
+  },
+  {
+    "type": "/*!",
+    "named": false
+  },
+  {
+    "type": "\\",
+    "named": false
+  },
+  {
+    "type": "block_argument",
+    "named": true
+  },
+  {
+    "type": "cell_span",
+    "named": true
+  },
+  {
+    "type": "command_argument",
+    "named": true
+  },
+  {
+    "type": "command_name",
+    "named": true
+  },
+  {
+    "type": "endlegalese",
+    "named": false
+  },
+  {
+    "type": "endlist",
+    "named": false
+  },
+  {
+    "type": "endquotation",
+    "named": false
+  },
+  {
+    "type": "endraw",
+    "named": false
+  },
+  {
+    "type": "endtable",
+    "named": false
+  },
+  {
+    "type": "image",
+    "named": false
+  },
+  {
+    "type": "image_alt",
+    "named": true
+  },
+  {
+    "type": "image_content",
+    "named": true
+  },
+  {
+    "type": "inline_command_name",
+    "named": true
+  },
+  {
+    "type": "inline_text",
+    "named": true
+  },
+  {
+    "type": "inlineimage",
+    "named": false
+  },
+  {
+    "type": "legalese",
+    "named": false
+  },
+  {
+    "type": "list",
+    "named": false
+  },
+  {
+    "type": "quotation",
+    "named": false
+  },
+  {
+    "type": "raw",
+    "named": false
+  },
+  {
+    "type": "raw_content_chunk",
+    "named": true
+  },
+  {
+    "type": "table",
+    "named": false
+  },
+  {
+    "type": "text",
+    "named": true
+  }
+]

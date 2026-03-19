@@ -1,0 +1,279 @@
+==================
+QDoc function documentation
+==================
+
+/*!
+    \fn int add(int a, int b)
+    \brief Adds two integers together.
+
+    This method accepts \a a and \a b arguments to return their sum.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text)))))
+
+==================
+QDoc class documentation
+==================
+
+/*!
+    \class Calculator
+    \brief The Calculator class provides basic arithmetic operations.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+Function with inline markup
+==================
+
+/*!
+    \fn void calculate()
+    \brief Performs calculation.
+
+    Use \c calculate() to start. The result is \b important.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text)))))
+
+==================
+QML type documentation
+==================
+
+/*!
+    \qmltype Button
+    \brief A clickable button.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+Trademark inline command with argument
+==================
+
+/*!
+    \fn void setup()
+    \brief Set up the application.
+
+    Use the Qt \tm framework.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text)))))
+
+==================
+Block command with brace-delimited argument
+==================
+
+/*!
+    \class {My Complex Class}
+    \brief A class with a complex name.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+==================
+Link inline command - brace and bare forms
+==================
+
+/*!
+    \fn void setup()
+    \brief Sets up the application.
+
+    See the \l {Qt Overview} for details.
+    Use \l QWidget to create UI elements.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text)))))
+
+==================
+Image block command and inlineimage inline command
+==================
+
+/*!
+    \fn void display()
+    \brief Displays the result.
+
+    \image result-screenshot.png
+
+    Use \inlineimage icon.png for the toolbar button.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (image_command
+          (image_content)))
+      (markup
+        (text))
+      (markup
+        (inlineimage_command
+          (inline_text)))
+      (markup
+        (text)))))

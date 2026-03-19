@@ -1,0 +1,7 @@
+/*!
+    \fn int add(int a, int b)
+    \brief Adds two numbers together.
+
+    This method accepts \a a and \a b arguments to return an integer value.
+    Use \c add() to perform addition. The result is \b important.
+*/

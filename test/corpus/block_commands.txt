@@ -1,0 +1,212 @@
+==================
+List block
+==================
+
+/*!
+    \list
+    \li First item.
+    \li Second item.
+    \endlist
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (list_block
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
+Table block with header and row
+==================
+
+/*!
+    \table
+    \header \li Name \li Value
+    \row \li foo \li bar
+    \endtable
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (table_block
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
+Raw block with HTML content
+==================
+
+/*!
+    \raw HTML
+    <p>Some raw HTML content.</p>
+    \endraw
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (raw_block
+            (block_argument)
+            (raw_content_chunk))))
+      (markup
+        (text)))))
+
+==================
+Legalese block
+==================
+
+/*!
+    \legalese
+    Copyright (C) 2024 The Qt Company Ltd.
+    \endlegalese
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (legalese_block
+            (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
+Quotation block
+==================
+
+/*!
+    \quotation
+    This is a quoted paragraph. It may span multiple sentences.
+    \endquotation
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (quotation_block
+            (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
+Nested block: list inside legalese
+==================
+
+/*!
+    \legalese
+    Redistributions must include:
+    \list
+    \li The copyright notice.
+    \li This list of conditions.
+    \endlist
+    \endlegalese
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (legalese_block
+            (markup
+              (text))
+            (markup
+              (block_command
+                (list_block
+                  (markup
+                    (text))
+                  (markup
+                    (command
+                      (command_name)))
+                  (markup
+                    (text))
+                  (markup
+                    (command
+                      (command_name)))
+                  (markup
+                    (text)))))
+            (markup
+              (text)))))
+      (markup
+        (text)))))
