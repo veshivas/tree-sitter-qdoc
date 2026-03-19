@@ -269,11 +269,55 @@ Image block command and inlineimage inline command
         (text))
       (markup
         (image_command
-          (image_content)))
+          (image_filename)))
       (markup
         (text))
       (markup
         (inlineimage_command
           (inline_text)))
+      (markup
+        (text)))))
+
+==================
+Image block command without alt text followed by prose
+==================
+
+/*!
+    \image result-screenshot.png
+    Some prose on the next line.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (image_command
+          (image_filename)))
+      (markup
+        (text)))))
+
+==================
+Image block command with alt text
+==================
+
+/*!
+    \image result-screenshot.png A screenshot of the result
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (image_command
+          (image_filename)
+          (image_alt_text)))
       (markup
         (text)))))

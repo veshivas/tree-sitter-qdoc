@@ -1,6 +1,11 @@
 module.exports = grammar({
   name: 'qdoc',
 
+  externals: $ => [
+    $.image_filename,   // handled by src/scanner.c
+    $.image_alt_text,   // handled by src/scanner.c
+  ],
+
   extras: $ => [/\s/],  // Whitespace including newlines
 
   rules: {
@@ -131,13 +136,22 @@ module.exports = grammar({
     // Image commands
     // ---------------------------------------------------------------------------
 
-    // \image filename [alt text or {alt text}]
-    // image_content captures the whole line (filename + optional alt text) as
-    // one token. Inside image_command the LR state never expects text, so the
-    // greedy-text problem does not apply.
-    image_command: $ => seq(
-      '\\', 'image',
-      field('content', $.image_content),
+    // \image filename [alt text]
+    // image_filename and image_alt_text are external tokens (see src/scanner.c).
+    // The external scanner is called before extras are consumed, so it can
+    // detect whether alt text follows on the same line (space after filename)
+    // or not (newline after filename). This correctly enforces the same-line
+    // constraint that token.immediate cannot provide with tree-sitter@0.20.8.
+    image_command: $ => choice(
+      prec(1, seq(
+        '\\', 'image',
+        field('filename', $.image_filename),
+        field('alt', $.image_alt_text),
+      )),
+      seq(
+        '\\', 'image',
+        field('filename', $.image_filename),
+      ),
     ),
 
     // \inlineimage filename [{alt text}]
@@ -156,9 +170,6 @@ module.exports = grammar({
         field('filename', $.inline_text),
       ),
     ),
-
-    // Whole line after \image — filename and optional alt text as one token.
-    image_content: $ => /\S[^\n\\]*/,
 
     // Brace-delimited alt text for \inlineimage: {alt text}
     image_alt: $ => token(prec(1, /\{[^}]*\}/)),

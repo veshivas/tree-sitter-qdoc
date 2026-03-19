@@ -121,15 +121,10 @@ func extractSentences(blockComment *sitter.Node, source []byte) []string {
 				case "image_command":
 					// \image filename [alt text] — skip filename, include alt text in prose
 					skipNextText = false
-					if contentNode := node.ChildByFieldName("content"); contentNode != nil {
-						content := getText(contentNode, source)
-						if idx := strings.IndexByte(content, ' '); idx >= 0 {
-							alt := strings.TrimSpace(content[idx+1:])
-							alt = strings.TrimPrefix(alt, "{")
-							alt = strings.TrimSuffix(alt, "}")
-							if alt != "" {
-								b.WriteString(" " + alt)
-							}
+					if altNode := node.ChildByFieldName("alt"); altNode != nil {
+						alt := strings.TrimSpace(getText(altNode, source))
+						if alt != "" {
+							b.WriteString(" " + alt)
 						}
 					}
 				case "inlineimage_command":
@@ -273,11 +268,19 @@ func extractAllCommandInstances(tree *sitter.Tree, source []byte) []CommandInsta
 			}
 		case "image_command":
 			cmdLine := node.StartPosition().Row + 1
-			content := ""
-			if n := node.ChildByFieldName("content"); n != nil {
-				content = getText(n, source)
+			filename := ""
+			if n := node.ChildByFieldName("filename"); n != nil {
+				filename = getText(n, source)
 			}
-			results = append(results, CommandInstance{Command: "image", Text: content, Line: cmdLine})
+			alt := ""
+			if n := node.ChildByFieldName("alt"); n != nil {
+				alt = strings.TrimSpace(getText(n, source))
+			}
+			imgText := filename
+			if alt != "" {
+				imgText = filename + " " + alt
+			}
+			results = append(results, CommandInstance{Command: "image", Text: imgText, Line: cmdLine})
 		case "block_command":
 			// Record each block type (list, table, legalese, etc.) with its optional argument.
 			// Inner commands (\li, \row, etc.) are picked up by the recursion below.
