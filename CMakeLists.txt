@@ -9,7 +9,10 @@ project(tree-sitter-qdoc
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 option(TREE_SITTER_REUSE_ALLOCATOR "Reuse the library allocator" OFF)
 
-set(TREE_SITTER_ABI_VERSION 15 CACHE STRING "Tree-sitter ABI version")
+# ABI v14 is required for compatibility with smacker/go-tree-sitter, which
+# is used by Vale and only supports ABI v14. Do not bump to v15.
+# To override the ABI version, use: cmake -DTREE_SITTER_ABI_VERSION=15 ..
+set(TREE_SITTER_ABI_VERSION 14 CACHE STRING "Tree-sitter ABI version")
 if(NOT ${TREE_SITTER_ABI_VERSION} MATCHES "^[0-9]+$")
     unset(TREE_SITTER_ABI_VERSION CACHE)
     message(FATAL_ERROR "TREE_SITTER_ABI_VERSION must be an integer")
