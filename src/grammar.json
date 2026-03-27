@@ -87,6 +87,22 @@
         {
           "type": "SYMBOL",
           "name": "quotation_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "omit_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "div_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "details_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "if_block"
         }
       ]
     },
@@ -278,6 +294,178 @@
         }
       ]
     },
+    "omit_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "omit"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "markup"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "endomit"
+        }
+      ]
+    },
+    "div_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "div"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "arg",
+              "content": {
+                "type": "SYMBOL",
+                "name": "block_argument"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "markup"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "enddiv"
+        }
+      ]
+    },
+    "details_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "details"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "markup"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "enddetails"
+        }
+      ]
+    },
+    "if_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "block_argument"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "then",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "markup"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "\\"
+                },
+                {
+                  "type": "STRING",
+                  "value": "else"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "else",
+                  "content": {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "markup"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "endif"
+        }
+      ]
+    },
     "raw_content_chunk": {
       "type": "PATTERN",
       "value": "[^\\\\]+"
@@ -444,6 +632,26 @@
           },
           {
             "type": "STRING",
+            "value": "qmlclass"
+          },
+          {
+            "type": "STRING",
+            "value": "qmlsingletontype"
+          },
+          {
+            "type": "STRING",
+            "value": "qmlabstract"
+          },
+          {
+            "type": "STRING",
+            "value": "qmldefault"
+          },
+          {
+            "type": "STRING",
+            "value": "qmlenumeratorsfrom"
+          },
+          {
+            "type": "STRING",
             "value": "brief"
           },
           {
@@ -453,6 +661,14 @@
           {
             "type": "STRING",
             "value": "warning"
+          },
+          {
+            "type": "STRING",
+            "value": "caption"
+          },
+          {
+            "type": "STRING",
+            "value": "subtitle"
           },
           {
             "type": "STRING",
@@ -520,6 +736,74 @@
           },
           {
             "type": "STRING",
+            "value": "inheaderfile"
+          },
+          {
+            "type": "STRING",
+            "value": "threadsafe"
+          },
+          {
+            "type": "STRING",
+            "value": "reentrant"
+          },
+          {
+            "type": "STRING",
+            "value": "nonreentrant"
+          },
+          {
+            "type": "STRING",
+            "value": "nativetype"
+          },
+          {
+            "type": "STRING",
+            "value": "instantiates"
+          },
+          {
+            "type": "STRING",
+            "value": "modulestate"
+          },
+          {
+            "type": "STRING",
+            "value": "attribution"
+          },
+          {
+            "type": "STRING",
+            "value": "meta"
+          },
+          {
+            "type": "STRING",
+            "value": "compares"
+          },
+          {
+            "type": "STRING",
+            "value": "compareswith"
+          },
+          {
+            "type": "STRING",
+            "value": "notranslate"
+          },
+          {
+            "type": "STRING",
+            "value": "default"
+          },
+          {
+            "type": "STRING",
+            "value": "wrapper"
+          },
+          {
+            "type": "STRING",
+            "value": "cmakecomponent"
+          },
+          {
+            "type": "STRING",
+            "value": "cmakepackage"
+          },
+          {
+            "type": "STRING",
+            "value": "cmaketargetitem"
+          },
+          {
+            "type": "STRING",
             "value": "code"
           },
           {
@@ -529,6 +813,50 @@
           {
             "type": "STRING",
             "value": "badcode"
+          },
+          {
+            "type": "STRING",
+            "value": "codeline"
+          },
+          {
+            "type": "STRING",
+            "value": "include"
+          },
+          {
+            "type": "STRING",
+            "value": "snippet"
+          },
+          {
+            "type": "STRING",
+            "value": "quotefile"
+          },
+          {
+            "type": "STRING",
+            "value": "quotefromfile"
+          },
+          {
+            "type": "STRING",
+            "value": "printline"
+          },
+          {
+            "type": "STRING",
+            "value": "printto"
+          },
+          {
+            "type": "STRING",
+            "value": "printuntil"
+          },
+          {
+            "type": "STRING",
+            "value": "skipline"
+          },
+          {
+            "type": "STRING",
+            "value": "skipto"
+          },
+          {
+            "type": "STRING",
+            "value": "skipuntil"
           },
           {
             "type": "STRING",
@@ -549,6 +877,22 @@
           {
             "type": "STRING",
             "value": "omitvalue"
+          },
+          {
+            "type": "STRING",
+            "value": "br"
+          },
+          {
+            "type": "STRING",
+            "value": "dots"
+          },
+          {
+            "type": "STRING",
+            "value": "o"
+          },
+          {
+            "type": "STRING",
+            "value": "span"
           },
           {
             "type": "STRING",
@@ -581,6 +925,30 @@
           {
             "type": "STRING",
             "value": "title"
+          },
+          {
+            "type": "STRING",
+            "value": "toc"
+          },
+          {
+            "type": "STRING",
+            "value": "tocentry"
+          },
+          {
+            "type": "STRING",
+            "value": "generatelist"
+          },
+          {
+            "type": "STRING",
+            "value": "annotatedlist"
+          },
+          {
+            "type": "STRING",
+            "value": "sincelist"
+          },
+          {
+            "type": "STRING",
+            "value": "noautolist"
           }
         ]
       }
@@ -600,11 +968,19 @@
           },
           {
             "type": "STRING",
+            "value": "bold"
+          },
+          {
+            "type": "STRING",
             "value": "c"
           },
           {
             "type": "STRING",
             "value": "e"
+          },
+          {
+            "type": "STRING",
+            "value": "i"
           },
           {
             "type": "STRING",
@@ -629,6 +1005,10 @@
           {
             "type": "STRING",
             "value": "uicontrol"
+          },
+          {
+            "type": "STRING",
+            "value": "underline"
           }
         ]
       }

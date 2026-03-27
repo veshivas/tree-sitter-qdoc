@@ -1,7 +1,7 @@
 {
   "name": "tree-sitter-qdoc",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "bindings/node",
   "types": "bindings/node",
   "dependencies": {
     "node-gyp-build": "^4.8.1"

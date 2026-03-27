@@ -16,9 +16,28 @@ var topicCommands = map[string]bool{
 	"class": true, "enum": true, "fn": true, "property": true, "variable": true,
 	"typedef": true, "typealias": true, "namespace": true, "module": true,
 	"group": true, "page": true, "example": true, "macro": true, "headerfile": true,
+	"externalpage": true, "nativetype": true,
 	"qmltype": true, "qmlproperty": true, "qmlmethod": true, "qmlsignal": true,
-	"qmlenum": true, "qmlmodule": true, "qmlattachedproperty": true,
-	"qmlattachedsignal": true,
+	"qmlenum": true, "qmlmodule": true, "qmlvaluetype": true,
+	"qmlattachedproperty": true, "qmlattachedsignal": true,
+	"qmlclass": true, "qmlsingletontype": true,
+	"cmakepackage": true, "cmakecomponent": true, "cmaketargetitem": true,
+}
+
+// briefCommands take all text until the first blank line as their argument.
+var briefCommands = map[string]bool{
+	"brief": true,
+}
+
+// admonitionCommands (\note, \warning) also take all text until the first
+// blank line as their argument.
+var admonitionCommands = map[string]bool{
+	"note": true, "warning": true,
+}
+
+// multilineCommands is the union of briefCommands and admonitionCommands.
+func isMultilineCommand(cmd string) bool {
+	return briefCommands[cmd] || admonitionCommands[cmd]
 }
 
 // skipAfterCommands contains commands whose immediately-following text node is
@@ -209,30 +228,79 @@ func getText(node *sitter.Node, source []byte) string {
 	return string(source[node.StartByte():node.EndByte()])
 }
 
-// getFollowingText gets the text that follows a command on the same line.
-// In the AST, the text after a command is a sibling text node of the command's
-// parent markup node, not a child of the command itself.
-func getFollowingText(commandNode *sitter.Node, source []byte) string {
-	parent := commandNode.Parent() // parent is a "markup" node
+// getFollowingText gets the text argument that follows a command.
+//
+// For \brief and admonition commands (\note, \warning): walks all sibling
+// markup nodes collecting text and inline_text content until the first blank
+// line (\n\n) or the next block command, whichever comes first. Whitespace
+// is normalised and the result is returned as a single string.
+//
+// For all other commands: returns the same-line text only (up to the first
+// newline), matching the original behaviour.
+func getFollowingText(commandNode *sitter.Node, cmdName string, source []byte) string {
+	parent := commandNode.Parent()
 	if parent == nil {
 		return ""
 	}
-	next := parent.NextNamedSibling() // next "markup" sibling
-	if next == nil {
+
+	if !isMultilineCommand(cmdName) {
+		// Original behaviour: first sibling text node, first line only.
+		next := parent.NextNamedSibling()
+		if next == nil {
+			return ""
+		}
+		for i := uint(0); i < next.NamedChildCount(); i++ {
+			child := next.NamedChild(i)
+			if child.Kind() == "text" {
+				text := strings.TrimLeft(getText(child, source), " \t")
+				if idx := strings.IndexByte(text, '\n'); idx >= 0 {
+					text = text[:idx]
+				}
+				return strings.TrimSpace(text)
+			}
+		}
 		return ""
 	}
-	for i := uint(0); i < next.NamedChildCount(); i++ {
-		child := next.NamedChild(i)
-		if child.Kind() == "text" {
-			text := strings.TrimLeft(getText(child, source), " \t")
-			// Take only up to the first newline (same-line text only)
-			if idx := strings.IndexByte(text, '\n'); idx >= 0 {
-				text = text[:idx]
+
+	// Multiline collection: walk siblings until \n\n or next block command.
+	var parts []string
+	sibling := parent.NextNamedSibling()
+	for sibling != nil {
+		stop := false
+		for i := uint(0); i < sibling.NamedChildCount(); i++ {
+			child := sibling.NamedChild(i)
+			switch child.Kind() {
+			case "text":
+				raw := getText(child, source)
+				if idx := strings.Index(raw, "\n\n"); idx >= 0 {
+					parts = append(parts, raw[:idx])
+					stop = true
+				} else {
+					parts = append(parts, raw)
+				}
+			case "inline_command":
+				for j := uint(0); j < child.NamedChildCount(); j++ {
+					ic := child.NamedChild(j)
+					if ic.Kind() == "inline_text" {
+						t := strings.TrimSpace(getText(ic, source))
+						t = strings.TrimPrefix(t, "{")
+						t = strings.TrimSuffix(t, "}")
+						parts = append(parts, t)
+					}
+				}
+			case "command", "block_command":
+				stop = true
 			}
-			return strings.TrimSpace(text)
+			if stop {
+				break
+			}
 		}
+		if stop {
+			break
+		}
+		sibling = sibling.NextNamedSibling()
 	}
-	return ""
+	return strings.Join(strings.Fields(strings.Join(parts, "")), " ")
 }
 
 // extractAllCommandInstances finds all block-level commands with their text
@@ -251,7 +319,7 @@ func extractAllCommandInstances(tree *sitter.Tree, source []byte) []CommandInsta
 				}
 			}
 			if cmdName != "" {
-				text := getFollowingText(node, source)
+				text := getFollowingText(node, cmdName, source)
 				if spanNode := node.ChildByFieldName("span"); spanNode != nil {
 					span := strings.TrimSpace(getText(spanNode, source))
 					span = strings.TrimPrefix(span, "{")

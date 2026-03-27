@@ -5,3 +5,22 @@
     This method accepts \a a and \a b arguments to return an integer value.
     Use \c add() to perform addition. The result is \b important.
 */
+
+/*!
+    \fn void format(double value)
+    \brief Formats a value for display using all inline markup styles.
+
+    The parameter \a value is formatted according to the current locale.
+
+    Rendering variants for the same content:
+    \b {bold via backslash-b}, \bold {bold via backslash-bold},
+    \e {italic via backslash-e}, \i {italic via backslash-i},
+    \underline {underlined text}, \tt {teletype font},
+    \c {inline code}, \sub {subscript}, \sup {superscript}.
+
+    UI references use \uicontrol {File > Save}.\br
+    Trademark example: Qt \tm is a registered trademark.\br
+    Truncated sequences end with \dots
+
+    \sa add(), subtract()
+*/

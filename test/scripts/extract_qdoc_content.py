@@ -43,9 +43,22 @@ except ImportError as e:
 TOPIC_COMMANDS = {
     'class', 'enum', 'fn', 'property', 'variable', 'typedef', 'typealias',
     'namespace', 'module', 'group', 'page', 'example', 'macro', 'headerfile',
+    'externalpage', 'nativetype',
     'qmltype', 'qmlproperty', 'qmlmethod', 'qmlsignal', 'qmlenum',
-    'qmlmodule', 'qmlattachedproperty', 'qmlattachedsignal',
+    'qmlmodule', 'qmlvaluetype', 'qmlattachedproperty', 'qmlattachedsignal',
+    'qmlclass', 'qmlsingletontype',
+    'cmakepackage', 'cmakecomponent', 'cmaketargetitem',
 }
+
+# \brief takes all text until the first blank line as its argument.
+BRIEF_COMMANDS = {'brief'}
+
+# Admonition commands (\note, \warning) also take all text until the first
+# blank line as their argument.
+ADMONITION_COMMANDS = {'note', 'warning'}
+
+# Combined set used by get_following_text to enable multiline collection.
+MULTILINE_COMMANDS = BRIEF_COMMANDS | ADMONITION_COMMANDS
 
 
 def build_parser():
@@ -59,30 +72,63 @@ def get_text(node, source_code):
     return source_code[node.start_byte:node.end_byte].decode('utf8')
 
 
-def get_following_text(command_node, source_code):
+def get_following_text(command_node, source_code, cmd_name=''):
     """
-    Get the text that follows a command on the same line.
+    Get the text argument that follows a command.
 
-    In the QDoc AST, text after a block command is parsed as a sibling text
-    node under the parent markup node — not as a child of the command itself.
-    This function looks at the next named sibling of the command's parent to
-    retrieve that text.
+    For brief and admonition commands (note, warning): walks all sibling
+    markup nodes collecting text and inline_text content until the first blank
+    line (\n\n) or the next block command, whichever comes first. Whitespace
+    is normalised and the result is returned as a single string.
+
+    For all other commands: returns the same-line text only (up to the first
+    newline), matching the original behaviour.
     """
     parent = command_node.parent  # "markup" node
     if parent is None:
         return ''
-    next_sibling = parent.next_named_sibling  # next "markup" node
-    if next_sibling is None:
+
+    if cmd_name not in MULTILINE_COMMANDS:
+        # Original behaviour: first sibling text node, first line only.
+        next_sibling = parent.next_named_sibling
+        if next_sibling is None:
+            return ''
+        for child in next_sibling.children:
+            if child.type == 'text':
+                text = get_text(child, source_code).lstrip(' \t')
+                newline = text.find('\n')
+                if newline >= 0:
+                    text = text[:newline]
+                return text.strip()
         return ''
-    for child in next_sibling.children:
-        if child.type == 'text':
-            text = get_text(child, source_code).lstrip(' \t')
-            # Take only up to the first newline (same-line text only)
-            newline = text.find('\n')
-            if newline >= 0:
-                text = text[:newline]
-            return text.strip()
-    return ''
+
+    # Multiline collection: walk siblings until \n\n or next block command.
+    parts = []
+    sibling = parent.next_named_sibling
+    while sibling is not None:
+        stop = False
+        for child in sibling.children:
+            if child.type == 'text':
+                raw = get_text(child, source_code)
+                blank = raw.find('\n\n')
+                if blank >= 0:
+                    parts.append(raw[:blank])
+                    stop = True
+                    break
+                parts.append(raw)
+            elif child.type == 'inline_command':
+                for ic in child.children:
+                    if ic.type == 'inline_text':
+                        t = get_text(ic, source_code).strip().strip('{}')
+                        parts.append(t)
+            elif child.type in ('command', 'block_command'):
+                stop = True
+                break
+        if stop:
+            break
+        sibling = sibling.next_named_sibling
+
+    return ' '.join(' '.join(parts).split())
 
 
 def extract_all_command_instances(tree, source_code):
@@ -98,7 +144,7 @@ def extract_all_command_instances(tree, source_code):
                     break
 
             if cmd_name:
-                text = get_following_text(node, source_code)
+                text = get_following_text(node, source_code, cmd_name)
                 results.append({
                     'command': cmd_name,
                     'text': text,

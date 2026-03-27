@@ -7,6 +7,14 @@
 */
 
 /*!
+    \class AdvancedCalculator
+    \brief The \c AdvancedCalculator class extends \c Calculator with \b {scientific} functions.
+
+    More detailed description starts here after the blank line.
+    Use \c pow() and \c sqrt() for exponential operations.
+*/
+
+/*!
     \fn int Calculator::add(int a, int b)
     \brief Adds two integers together.
 
@@ -96,4 +104,184 @@
     \endraw
 
     Some concluding prose after the raw block.
+*/
+
+/*!
+    \fn void Calculator::setMode(int mode)
+    \brief Sets the calculator operating mode.
+    \since 2.1
+
+    Sets the operating \a mode for this calculator instance.
+
+    \if defined(Q_OS_WIN)
+    On Windows, mode 0 delegates to the system calculator engine.
+    \else
+    On other platforms, the built-in engine is always used regardless of mode.
+    \endif
+
+    \note Changing the mode resets any pending operations.
+*/
+
+/*!
+    \page advanced.html
+    \title Advanced Usage
+    \subtitle For power users and integrators
+
+    \toc
+
+    \section1 Overview
+
+    This page covers advanced configuration options.
+
+    \div {note}
+    Advanced features require Calculator version 2.0 or later.
+    \enddiv
+
+    \details
+    The internal pipeline processes operands in reverse Polish notation.
+    See the source code for full implementation details.
+    \enddetails
+
+    \section1 Platform Notes
+
+    \if defined(Q_OS_WIN)
+    Windows users should install the Visual C++ runtime.
+    \else
+    Linux and macOS users should ensure glibc 2.17 or later is present.
+    \endif
+*/
+
+/*!
+    \fn int Calculator::internalHelper()
+    \internal
+
+    \omit
+    Used by add() and subtract() to normalize operands before the operation.
+    Performs range checks and throws std::overflow_error on overflow.
+    Not exposed in the public API.
+    \endomit
+*/
+
+/*!
+    \class SafeCalculator
+    \brief A thread-safe calculator with full reentrancy support.
+    \threadsafe
+    \since 2.0
+    \inmodule QtMath
+    \inheaderfile <SafeCalculator>
+    \modulestate preliminary
+    \compares strong
+    \compareswith Calculator
+    \meta keywords {calculator, thread-safe, math}
+*/
+
+/*!
+    \fn void Calculator::display()
+    \brief Displays the formatted result in the output panel.
+
+    The current result is shown in \bold {bold weight} by default.
+    Use \i italic mode for provisional results.
+    Long output wraps automatically;\br shorter output is shown on one line.
+    Trailing digits beyond the precision limit are replaced with \dots
+
+    \underline {Important}: call update() before calling display() to ensure
+    the result is current.
+*/
+
+/*!
+    \fn void Calculator::loadExample()
+    \brief Loads a built-in example configuration.
+
+    Copies the example setup into the active configuration:
+
+    \snippet examples/calculator.cpp load-example
+
+    Alternatively, you can load a single line:
+
+    \codeline Calculator calc;
+    \codeline calc.setMode(0);
+
+    After loading, call configure() to apply the settings.
+
+    \include shared/common-notes.qdocinc
+*/
+
+/*!
+    \fn void Calculator::dumpSource()
+    \brief Prints selected lines from the reference source.
+
+    \quotefromfile examples/reference.cpp
+    \skipto //! [calc-start]
+    \printuntil //! [calc-end]
+*/
+
+/*!
+    \page all-classes.html
+    \title All Calculator Classes
+    \subtitle Complete class reference for the Calculator module
+    \noautolist
+
+    \generatelist annotatedclasses
+    \annotatedlist calculator-classes
+    \sincelist 2.0
+*/
+
+/*!
+    \qmltype AbstractButton
+    \inqmlmodule QtQuick.Controls
+    \brief An abstract base type for interactive buttons.
+    \qmlabstract
+    \instantiates QQuickAbstractButton
+    \since 2.0
+
+    AbstractButton provides the base behavior and appearance for button-like controls.
+    Derive from this type to implement custom button types.
+
+    \qmlproperty bool AbstractButton::checked
+    \qmldefault
+
+    Whether the button is checked. This is the default property.
+*/
+
+/*!
+    \qmlvaluetype color
+    \inqmlmodule QtQuick
+    \brief The color value type refers to an ARGB color value.
+    \nativetype QColor
+
+    The \c color type refers to an ARGB color value. It can be specified
+    using an SVG color name, a hexadecimal triplet, or \c Qt.rgba().
+*/
+
+/*!
+    \qmlenum Calculator::Operation
+    \qmlenumeratorsfrom Calculator
+    \brief The supported arithmetic operations exposed to QML.
+
+    \value Add Addition operation.
+    \value Subtract Subtraction operation.
+    \value Multiply Multiplication operation.
+    \value Divide Division operation.
+*/
+
+/*!
+    \cmakepackage Qt6Math
+    \brief Provides the Qt Math CMake integration targets.
+    \since 6.5
+    \cmakecomponent Math
+    \cmaketargetitem Qt6::Math
+*/
+
+/*!
+    \page licensing.html
+    \title Licensing and Attribution
+
+    \attribution
+    This module uses the libmath library version 3.2,
+    available under the BSD 2-Clause License.
+
+    \legalese
+    Copyright (C) 2024 The Qt Company Ltd.
+    All rights reserved.
+    \endlegalese
 */
