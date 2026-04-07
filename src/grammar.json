@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "qdoc",
   "rules": {
     "source_file": {
@@ -478,8 +479,17 @@
           "value": "\\"
         },
         {
-          "type": "SYMBOL",
-          "name": "command_name"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "command_name"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "macro_name"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -1013,6 +1023,10 @@
         ]
       }
     },
+    "macro_name": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z][a-zA-Z0-9]*"
+    },
     "image_command": {
       "type": "CHOICE",
       "members": [
@@ -1217,6 +1231,6 @@
     }
   ],
   "inline": [],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }
-
