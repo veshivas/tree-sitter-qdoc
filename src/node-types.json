@@ -188,6 +188,11 @@
     }
   },
   {
+    "type": "image_alt",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "image_command",
     "named": true,
     "fields": {
@@ -274,6 +279,47 @@
     }
   },
   {
+    "type": "link_alias",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "link_command",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "link_alias",
+            "named": true
+          }
+        ]
+      },
+      "hints": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "link_hints",
+            "named": true
+          }
+        ]
+      },
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "inline_text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "list_block",
     "named": true,
     "fields": {
@@ -312,6 +358,10 @@
           "named": true
         },
         {
+          "type": "brace_group",
+          "named": true
+        },
+        {
           "type": "command",
           "named": true
         },
@@ -325,6 +375,10 @@
         },
         {
           "type": "inlineimage_command",
+          "named": true
+        },
+        {
+          "type": "link_command",
           "named": true
         },
         {
@@ -449,6 +503,10 @@
     "named": true
   },
   {
+    "type": "brace_group",
+    "named": true
+  },
+  {
     "type": "cell_span",
     "named": true
   },
@@ -517,10 +575,6 @@
     "named": false
   },
   {
-    "type": "image_alt",
-    "named": true
-  },
-  {
     "type": "image_alt_text",
     "named": true
   },
@@ -541,8 +595,16 @@
     "named": false
   },
   {
+    "type": "l",
+    "named": false
+  },
+  {
     "type": "legalese",
     "named": false
+  },
+  {
+    "type": "link_hints",
+    "named": true
   },
   {
     "type": "list",

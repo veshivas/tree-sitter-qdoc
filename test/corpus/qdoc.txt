@@ -189,6 +189,8 @@ Block command with brace-delimited argument
         (command
           (command_name)))
       (markup
+        (brace_group))
+      (markup
         (text))
       (markup
         (command
@@ -196,7 +198,7 @@ Block command with brace-delimited argument
       (markup
         (text)))))
 ==================
-Link inline command - brace and bare forms
+Link inline command - target only (brace and bare forms)
 ==================
 
 /*!
@@ -225,15 +227,126 @@ Link inline command - brace and bare forms
       (markup
         (text))
       (markup
-        (inline_command
-          (inline_command_name)
+        (link_command
           (inline_text)))
       (markup
         (text))
       (markup
-        (inline_command
-          (inline_command_name)
+        (link_command
           (inline_text)))
+      (markup
+        (text)))))
+
+==================
+Link inline command - target with alias
+==================
+
+/*!
+    \fn void show()
+    \brief Shows the widget.
+
+    Call \l {QWidget::show()} {show it} to make it visible.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (link_command
+          (inline_text)
+          (link_alias)))
+      (markup
+        (text)))))
+
+==================
+Link inline command - entity type hint with target
+==================
+
+/*!
+    \fn void load()
+    \brief Loads the component.
+
+    See \l [QML] {Window} for the QML type.
+    See \l [CPP] {QWindow} for the C++ class.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (link_command
+          (link_hints)
+          (inline_text)))
+      (markup
+        (text))
+      (markup
+        (link_command
+          (link_hints)
+          (inline_text)))
+      (markup
+        (text)))))
+
+==================
+Link inline command - module and type hint with target and alias
+==================
+
+/*!
+    \fn void create()
+    \brief Creates the item.
+
+    Use \l [CPP QtWidgets] {QWidget} {the widget class} as the base.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (link_command
+          (link_hints)
+          (inline_text)
+          (link_alias)))
       (markup
         (text)))))
 
@@ -762,6 +875,10 @@ Type and module metadata commands
       (markup
         (command
           (command_name)))
+      (markup
+        (text))
+      (markup
+        (brace_group))
       (markup
         (text))
       (markup

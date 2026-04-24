@@ -25,7 +25,9 @@ module.exports = grammar({
       $.image_command,
       $.inlineimage_command,
       $.command,
+      $.link_command,
       $.inline_command,
+      $.brace_group,
       $.text
     ),
 
@@ -137,6 +139,22 @@ module.exports = grammar({
       $.inline_text
     ),
 
+    // \l [optional-hints] {target} {optional-alias}
+    // hints   — entity type / module scoping hint, e.g. [QML], [CPP QtWidgets]
+    // target  — link destination, brace-delimited or single word
+    // alias   — display text shown instead of the target
+    link_command: $ => prec.right(seq(
+      '\\',
+      'l',
+      optional(field('hints',  $.link_hints)),
+      field('target', $.inline_text),
+      optional(field('alias',  $.link_alias))
+    )),
+
+    link_hints: $ => /\[[^\]]*\]/,
+    // prec(1) beats brace_group (prec 0) when both match {same length text}
+    link_alias: $ => token(prec(1, /\{[^}]*\}/)),
+
     command_name: $ => token(choice(
       // Topic commands
       'class', 'enum', 'example', 'externalpage', 'fn', 'group',
@@ -184,7 +202,7 @@ module.exports = grammar({
     )),
 
     inline_command_name: $ => token(choice(
-      'a', 'b', 'bold', 'c', 'e', 'i', 'l', 'sub', 'sup', 'tm', 'tt', 'uicontrol', 'underline'
+      'a', 'b', 'bold', 'c', 'e', 'i', 'sub', 'sup', 'tm', 'tt', 'uicontrol', 'underline'
     )),
 
     // Catch-all for custom macros (e.g. \macos, \youtube).
@@ -253,6 +271,12 @@ module.exports = grammar({
       /[^\s\\{}\n]+/   // single-word argument, stops at whitespace
     )),
 
-    text: $ => /[^\\\*]+/,
+    // Prose text: anything except backslash, asterisk, and opening brace.
+    // Brace sequences ({...}) are handled as brace_group so that link_alias
+    // can compete for {alias} without the greedy text rule winning.
+    text: $ => /[^\\\*{]+/,
+
+    // {brace-delimited} content appearing in prose (not a command argument).
+    brace_group: $ => /\{[^}]*\}/,
   }
 });

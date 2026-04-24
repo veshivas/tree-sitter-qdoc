@@ -58,7 +58,15 @@
         },
         {
           "type": "SYMBOL",
+          "name": "link_command"
+        },
+        {
+          "type": "SYMBOL",
           "name": "inline_command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "brace_group"
         },
         {
           "type": "SYMBOL",
@@ -535,6 +543,78 @@
         }
       ]
     },
+    "link_command": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "\\"
+          },
+          {
+            "type": "STRING",
+            "value": "l"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "hints",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "link_hints"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "FIELD",
+            "name": "target",
+            "content": {
+              "type": "SYMBOL",
+              "name": "inline_text"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "alias",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "link_alias"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "link_hints": {
+      "type": "PATTERN",
+      "value": "\\[[^\\]]*\\]"
+    },
+    "link_alias": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "\\{[^}]*\\}"
+        }
+      }
+    },
     "command_name": {
       "type": "TOKEN",
       "content": {
@@ -994,10 +1074,6 @@
           },
           {
             "type": "STRING",
-            "value": "l"
-          },
-          {
-            "type": "STRING",
             "value": "sub"
           },
           {
@@ -1209,7 +1285,11 @@
     },
     "text": {
       "type": "PATTERN",
-      "value": "[^\\\\\\*]+"
+      "value": "[^\\\\\\*{]+"
+    },
+    "brace_group": {
+      "type": "PATTERN",
+      "value": "\\{[^}]*\\}"
     }
   },
   "extras": [
