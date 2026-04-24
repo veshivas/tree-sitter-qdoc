@@ -10,7 +10,8 @@
 
 ; ─── Prose text ───────────────────────────────────────────────────────────────
 
-(text) @comment.documentation
+(text)        @comment.documentation
+(brace_group) @comment.documentation
 (raw_content_chunk) @markup.raw
 
 ; ─── Backslash prefix ─────────────────────────────────────────────────────────
@@ -124,10 +125,11 @@
   (inline_command_name) @_cmd (#eq? @_cmd "a")
   (inline_text) @variable.parameter)
 
-; Link / cross-reference \l {Target}
-(inline_command
-  (inline_command_name) @_cmd (#eq? @_cmd "l")
-  (inline_text) @markup.link)
+; Link / cross-reference \l [hints] {target} {alias}
+(link_command "l"                   @markup.link.label)
+(link_command hints:  (link_hints)  @string.special)
+(link_command target: (inline_text) @markup.link)
+(link_command alias:  (link_alias)  @markup.link)
 
 ; UI control label
 (inline_command

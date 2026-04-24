@@ -58,7 +58,8 @@
    :feature 'comment
    '("/*!" @font-lock-comment-delimiter-face
      "*/"  @font-lock-comment-delimiter-face
-     (text) @font-lock-doc-face)
+     (text)        @font-lock-doc-face
+     (brace_group) @font-lock-doc-face)
 
    ;; ── Level 2: keywords ──────────────────────────────────────────────────
 
@@ -158,11 +159,11 @@
       (:equal @_cmd "a")
       (inline_text) @font-lock-variable-name-face)
 
-     ;; Link \l{Target} — underline adds a non-color cue
-     (inline_command
-      (inline_command_name) @_cmd
-      (:equal @_cmd "l")
-      (inline_text) @font-lock-string-face)
+     ;; Link \l [hints] {target} {alias}
+     (link_command "l"                   @font-lock-keyword-face)
+     (link_command hints:  (link_hints)  @font-lock-string-face)
+     (link_command target: (inline_text) @font-lock-string-face)
+     (link_command alias:  (link_alias)  @font-lock-string-face)
 
      ;; UI control \uicontrol{}
      (inline_command
