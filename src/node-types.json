@@ -94,12 +94,22 @@
     "type": "image_command",
     "named": true,
     "fields": {
-      "content": {
+      "alt": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "image_alt_text",
+            "named": true
+          }
+        ]
+      },
+      "filename": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "image_content",
+            "type": "image_filename",
             "named": true
           }
         ]
@@ -366,7 +376,11 @@
     "named": true
   },
   {
-    "type": "image_content",
+    "type": "image_alt_text",
+    "named": true
+  },
+  {
+    "type": "image_filename",
     "named": true
   },
   {

@@ -634,23 +634,61 @@
       }
     },
     "image_command": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "\\"
-        },
-        {
-          "type": "STRING",
-          "value": "image"
-        },
-        {
-          "type": "FIELD",
-          "name": "content",
+          "type": "PREC",
+          "value": 1,
           "content": {
-            "type": "SYMBOL",
-            "name": "image_content"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "\\"
+              },
+              {
+                "type": "STRING",
+                "value": "image"
+              },
+              {
+                "type": "FIELD",
+                "name": "filename",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "image_filename"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "alt",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "image_alt_text"
+                }
+              }
+            ]
           }
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "\\"
+            },
+            {
+              "type": "STRING",
+              "value": "image"
+            },
+            {
+              "type": "FIELD",
+              "name": "filename",
+              "content": {
+                "type": "SYMBOL",
+                "name": "image_filename"
+              }
+            }
+          ]
         }
       ]
     },
@@ -712,10 +750,6 @@
           ]
         }
       ]
-    },
-    "image_content": {
-      "type": "PATTERN",
-      "value": "\\S[^\\n\\\\]*"
     },
     "image_alt": {
       "type": "TOKEN",
@@ -792,7 +826,16 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "image_filename"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "image_alt_text"
+    }
+  ],
   "inline": [],
   "supertypes": []
 }
