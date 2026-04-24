@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.2.0] — 2026-04-24
+
+### Grammar
+
+- `\l` link command now parsed as a dedicated `link_command` node with typed fields: optional `hints` (`[QML]`, `[CPP]`, etc.), required `target`, and optional `alias`
+- Added `brace_group` node for `{...}` sequences in prose (previously consumed by the greedy `text` rule)
+
+### Syntax Highlighting
+
+- Updated highlight queries (`queries/highlights.scm`, `queries/qdoc/highlights.scm`) and `qdoc-ts-mode.el` to use field-based `link_command` captures
+- `brace_group` highlighted as documentation prose in all highlight files
+
+### Documentation
+
+- README editor support section expanded with step-by-step setup instructions for Neovim, Emacs, Helix, and VS Code
+- AST structure and node fields table updated to reflect `link_command` and `brace_group`
+
+[0.2.0]: https://github.com/veshivas/tree-sitter-qdoc/releases/tag/v0.2.0
+
 ## [0.1.0] — 2026-04-23
 
 Initial release of the tree-sitter grammar for QDoc markup.
