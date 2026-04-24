@@ -8,11 +8,27 @@
       "required": true,
       "types": [
         {
+          "type": "details_block",
+          "named": true
+        },
+        {
+          "type": "div_block",
+          "named": true
+        },
+        {
+          "type": "if_block",
+          "named": true
+        },
+        {
           "type": "legalese_block",
           "named": true
         },
         {
           "type": "list_block",
+          "named": true
+        },
+        {
+          "type": "omit_block",
           "named": true
         },
         {
@@ -88,6 +104,83 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "details_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "markup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "div_block",
+    "named": true,
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block_argument",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "markup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "if_block",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_argument",
+            "named": true
+          }
+        ]
+      },
+      "else": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "markup",
+            "named": true
+          }
+        ]
+      },
+      "then": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "markup",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -238,6 +331,21 @@
     }
   },
   {
+    "type": "omit_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "markup",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "quotation_block",
     "named": true,
     "fields": {},
@@ -348,11 +456,39 @@
     "named": true
   },
   {
+    "type": "details",
+    "named": false
+  },
+  {
+    "type": "div",
+    "named": false
+  },
+  {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "enddetails",
+    "named": false
+  },
+  {
+    "type": "enddiv",
+    "named": false
+  },
+  {
+    "type": "endif",
+    "named": false
+  },
+  {
     "type": "endlegalese",
     "named": false
   },
   {
     "type": "endlist",
+    "named": false
+  },
+  {
+    "type": "endomit",
     "named": false
   },
   {
@@ -365,6 +501,10 @@
   },
   {
     "type": "endtable",
+    "named": false
+  },
+  {
+    "type": "if",
     "named": false
   },
   {
@@ -401,6 +541,10 @@
   },
   {
     "type": "list",
+    "named": false
+  },
+  {
+    "type": "omit",
     "named": false
   },
   {

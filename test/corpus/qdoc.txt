@@ -321,3 +321,576 @@ Image block command with alt text
           (image_alt_text)))
       (markup
         (text)))))
+
+==================
+Bold, italic, and underline inline commands
+==================
+
+/*!
+    \fn void format()
+    \brief Applies formatting.
+
+    Use \bold important, \i italic, and \underline critical text.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text))
+      (markup
+        (inline_command
+          (inline_command_name)
+          (inline_text)))
+      (markup
+        (text)))))
+
+==================
+Thread safety markers
+==================
+
+/*!
+    \class QThread
+    \brief A threading class.
+    \threadsafe
+    \reentrant
+    \nonreentrant
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+QML modifier commands
+==================
+
+/*!
+    \qmltype Foo
+    \brief A foo type.
+    \qmlabstract
+    \qmldefault
+    \instantiates QFoo
+    \qmlenumeratorsfrom QFooEnum
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+Deprecated QML type aliases
+==================
+
+/*!
+    \qmlclass OldName QOldName
+    \brief Old-style class documentation.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+Code quoting and file inclusion commands
+==================
+
+/*!
+    \fn void load()
+    \brief Loads data.
+    \snippet examples/main.cpp load-call
+    \include shared/licensing.qdocinc
+    \codeline int x = getValue();
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+File print and skip commands
+==================
+
+/*!
+    \fn void parse()
+    \brief Parses source.
+    \quotefromfile examples/main.cpp
+    \skipline //! [start]
+    \printline int main
+    \skipto class Widget
+    \printto //! [end]
+    \skipuntil //! [skip]
+    \printuntil return 0;
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+Page subtitle and caption
+==================
+
+/*!
+    \page overview.html
+    \title Overview
+    \subtitle A complete reference
+    \brief An overview page.
+    \caption Application architecture diagram.
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+Generated list commands
+==================
+
+/*!
+    \page all-classes.html
+    \title All Classes
+    \generatelist annotatedclasses
+    \annotatedlist classes
+    \sincelist 6.5
+    \noautolist
+    \toc
+    \tocentry Manual Entry
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+Type and module metadata commands
+==================
+
+/*!
+    \class QWidget
+    \brief A base widget class.
+    \modulestate experimental
+    \attribution Third Party Lib 1.2
+    \meta keywords {widget, ui}
+    \compares strong
+    \compareswith QFrame
+    \inheaderfile <QWidget>
+    \notranslate
+    \wrapper
+    \default
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+CMake integration commands
+==================
+
+/*!
+    \cmakepackage Qt6Core
+    \brief Qt Core CMake package.
+    \cmakecomponent Core
+    \cmaketargetitem Qt6::Core
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text)))))
+
+==================
+Inline no-arg commands - br, dots, and ordered list item
+==================
+
+/*!
+    \fn void display()
+    \brief Displays content.
+
+    Line one.\br Line two. With \dots and more.
+    \list 1
+    \o First item.
+    \o Second item.
+    \endlist
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (command
+          (command_name)))
+      (markup
+        (text))
+      (markup
+        (block_command
+          (list_block
+            arg: (block_argument)
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text))
+            (markup
+              (command
+                (command_name)))
+            (markup
+              (text)))))
+      (markup
+        (text)))))

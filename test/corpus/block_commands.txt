@@ -166,6 +166,138 @@ Quotation block
         (text)))))
 
 ==================
+Omit block
+==================
+
+/*!
+    \omit
+    This content is omitted from output.
+    \endomit
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (omit_block
+            (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
+Div block with CSS class argument
+==================
+
+/*!
+    \div {sidebar}
+    Some sidebar content.
+    \enddiv
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (div_block
+            arg: (block_argument)
+            (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
+Details block
+==================
+
+/*!
+    \details
+    Collapsible content here.
+    \enddetails
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (details_block
+            (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
+If block without else
+==================
+
+/*!
+    \if defined(Q_OS_WIN)
+    Windows-only content.
+    \endif
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (if_block
+            condition: (block_argument)
+            then: (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
+If block with else
+==================
+
+/*!
+    \if defined(Q_OS_WIN)
+    Windows text.
+    \else
+    Other platform text.
+    \endif
+*/
+
+---
+
+(source_file
+  (comment
+    (block_comment
+      (markup
+        (text))
+      (markup
+        (block_command
+          (if_block
+            condition: (block_argument)
+            then: (markup
+              (text))
+            else: (markup
+              (text)))))
+      (markup
+        (text)))))
+
+==================
 Nested block: list inside legalese
 ==================
 

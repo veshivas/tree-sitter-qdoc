@@ -39,6 +39,10 @@ module.exports = grammar({
       $.raw_block,
       $.legalese_block,
       $.quotation_block,
+      $.omit_block,
+      $.div_block,
+      $.details_block,
+      $.if_block,
     ),
 
     // \list [type] ... \li items ... \endlist
@@ -79,6 +83,37 @@ module.exports = grammar({
       '\\', 'endquotation'
     ),
 
+    // \omit ... prose/markup ... \endomit
+    omit_block: $ => seq(
+      '\\', 'omit',
+      repeat($.markup),
+      '\\', 'endomit'
+    ),
+
+    // \div {class} ... prose/markup ... \enddiv
+    div_block: $ => seq(
+      '\\', 'div',
+      optional(field('arg', $.block_argument)),
+      repeat($.markup),
+      '\\', 'enddiv'
+    ),
+
+    // \details ... prose/markup ... \enddetails
+    details_block: $ => seq(
+      '\\', 'details',
+      repeat($.markup),
+      '\\', 'enddetails'
+    ),
+
+    // \if condition ... [\else ...] \endif
+    if_block: $ => seq(
+      '\\', 'if',
+      field('condition', $.block_argument),
+      field('then', repeat($.markup)),
+      optional(seq('\\', 'else', field('else', repeat($.markup)))),
+      '\\', 'endif'
+    ),
+
     // Raw content: sequences of non-backslash characters (raw HTML etc.)
     // Stops at \ so \endraw is correctly lexed as the block terminator.
     raw_content_chunk: $ => /[^\\]+/,
@@ -111,25 +146,45 @@ module.exports = grammar({
       'qmltype', 'qmlproperty', 'qmlmethod', 'qmlsignal', 'qmlenum',
       'qmlattachedproperty', 'qmlattachedsignal', 'qmlmodule',
       'qmlvaluetype', 'inqmlmodule',
+      // QML topic commands (deprecated aliases)
+      'qmlclass', 'qmlsingletontype',
+      // QML modifiers
+      'qmlabstract', 'qmldefault', 'qmlenumeratorsfrom',
       // Special content commands
-      'brief', 'note', 'warning',
+      'brief', 'note', 'warning', 'caption', 'subtitle',
       // Link commands
       'sa', 'keyword', 'target',
       // Context/relationship commands
       'since', 'deprecated', 'internal', 'preliminary', 'abstract',
       'readonly', 'required', 'inherits', 'overload', 'reimp', 'relates',
-      'ingroup', 'inmodule',
+      'ingroup', 'inmodule', 'inheaderfile',
+      // Thread-safety markers
+      'threadsafe', 'reentrant', 'nonreentrant',
+      // Type/module metadata
+      'nativetype', 'instantiates', 'modulestate', 'attribution', 'meta',
+      'compares', 'compareswith', 'notranslate', 'default', 'wrapper',
+      // CMake integration
+      'cmakecomponent', 'cmakepackage', 'cmaketargetitem',
       // Code commands (block structure handled externally by Vale; kept as commands)
       'code', 'qml', 'badcode',
+      // Code quoting / file inclusion
+      'codeline', 'include', 'snippet',
+      'quotefile', 'quotefromfile',
+      'printline', 'printto', 'printuntil',
+      'skipline', 'skipto', 'skipuntil',
       // List/table sub-commands (appear inside list_block / table_block)
       'li', 'row', 'header', 'value', 'omitvalue',
+      // Inline text formatting (no argument form)
+      'br', 'dots', 'o', 'span',
       // Navigation commands
       'section1', 'section2', 'section3', 'section4',
-      'nextpage', 'previouspage', 'startpage', 'title'
+      'nextpage', 'previouspage', 'startpage', 'title',
+      // Generated/navigated lists
+      'toc', 'tocentry', 'generatelist', 'annotatedlist', 'sincelist', 'noautolist'
     )),
 
     inline_command_name: $ => token(choice(
-      'a', 'b', 'c', 'e', 'l', 'sub', 'sup', 'tm', 'tt', 'uicontrol'
+      'a', 'b', 'bold', 'c', 'e', 'i', 'l', 'sub', 'sup', 'tm', 'tt', 'uicontrol', 'underline'
     )),
 
     // ---------------------------------------------------------------------------
