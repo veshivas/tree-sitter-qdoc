@@ -111,7 +111,7 @@ Syntax highlighting is provided for:
 | Neovim | tree-sitter queries | `queries/qdoc/highlights.scm`, `queries/doxygen/highlights.scm` |
 | Emacs 29+ | `qdoc-ts-mode` (treesit) | `editors/emacs/qdoc-ts-mode.el` |
 | Helix | tree-sitter queries | `queries/highlights.scm` |
-| VS Code | TextMate grammar | [veshivas/qdoc-lang](https://github.com/veshivas/qdoc-lang) |
+| VS Code | TextMate grammar | [qdoc-lang](https://marketplace.visualstudio.com/items?itemName=AndreasEliasson.qdoc-lang) |
 
 Pre-built parser libraries for all platforms are attached to every [GitHub release](https://github.com/veshivas/tree-sitter-qdoc/releases/latest). See [`editors/SETUP.md`](editors/SETUP.md) for full download and verification instructions.
 
@@ -231,10 +231,6 @@ hx --grammar build
 
 ### VS Code
 
-Install the [qdoc-lang](https://github.com/veshivas/qdoc-lang) extension:
-
-```bash
-code --install-extension veshivas.qdoc-lang
-```
+Install the **qdoc-lang** extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=AndreasEliasson.qdoc-lang): open the Extensions panel (`Ctrl+Shift+X` / `Cmd+Shift+X`), search for **qdoc-lang**, and click Install.
 
 This uses a TextMate grammar — no parser library required. Covers standalone `.qdoc` / `.qdocinc` files and QDoc blocks injected into `.cpp`, `.c`, and `.qml` files.
