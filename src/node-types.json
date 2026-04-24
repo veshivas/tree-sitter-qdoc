@@ -87,6 +87,10 @@
         {
           "type": "command_name",
           "named": true
+        },
+        {
+          "type": "macro_name",
+          "named": true
         }
       ]
     }
@@ -389,6 +393,7 @@
   {
     "type": "source_file",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -542,6 +547,10 @@
   {
     "type": "list",
     "named": false
+  },
+  {
+    "type": "macro_name",
+    "named": true
   },
   {
     "type": "omit",

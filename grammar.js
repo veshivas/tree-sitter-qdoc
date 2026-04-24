@@ -124,7 +124,7 @@ module.exports = grammar({
 
     command: $ => seq(
       '\\',
-      $.command_name,
+      choice($.command_name, $.macro_name),
       optional(choice(
         field('span', $.cell_span),
         $.command_argument
@@ -186,6 +186,13 @@ module.exports = grammar({
     inline_command_name: $ => token(choice(
       'a', 'b', 'bold', 'c', 'e', 'i', 'l', 'sub', 'sup', 'tm', 'tt', 'uicontrol', 'underline'
     )),
+
+    // Catch-all for custom macros (e.g. \macos, \youtube).
+    // Defined AFTER inline_command_name so that inline command literals
+    // win by definition order for same-length matches (e.g. \a, \b, \l).
+    // Known command_name literals and block command literals win by
+    // match length (they are longer or equal and are string literals).
+    macro_name: $ => /[a-zA-Z][a-zA-Z0-9]*/,
 
     // ---------------------------------------------------------------------------
     // Image commands
