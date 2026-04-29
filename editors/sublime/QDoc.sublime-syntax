@@ -1,0 +1,219 @@
+%YAML 1.2
+---
+# QDoc syntax highlighting for Sublime Text 3 / 4
+# Requires ST3 build 3084+ (all modern versions qualify).
+#
+# Install: copy this file into your Sublime Text Packages/User/ directory.
+# File association is automatic for *.qdoc and *.qdocinc files.
+#
+# https://github.com/veshivas/tree-sitter-qdoc
+
+name: QDoc
+file_extensions:
+  - qdoc
+  - qdocinc
+scope: text.qdoc
+
+contexts:
+  main:
+    - match: /\*!
+      scope: punctuation.definition.comment.begin.qdoc
+      push: block-comment-body
+
+  # ── Inside /*! ... */ ──────────────────────────────────────────────────────
+
+  block-comment-body:
+    - meta_scope: comment.block.documentation.qdoc
+    - match: \*/
+      scope: punctuation.definition.comment.end.qdoc
+      pop: true
+    - include: qdoc-inner
+
+  # ── Reusable inner content (no delimiters) ─────────────────────────────────
+  # Referenced by QDocInCpp.sublime-syntax via scope:text.qdoc#qdoc-inner
+  # to embed QDoc highlighting inside /*! ... */ blocks in C++ files.
+
+  qdoc-inner:
+    - include: commands
+    - match: \{[^}]*\}
+      scope: string.other.argument.qdoc
+
+  # ── Command dispatch ───────────────────────────────────────────────────────
+
+  commands:
+    - include: block-commands
+    - include: topic-commands
+    - include: warning-commands
+    - include: note-commands
+    - include: heading-commands
+    - include: code-fence-commands
+    - include: image-commands
+    - include: inline-bold
+    - include: inline-italic
+    - include: inline-code
+    - include: inline-underline
+    - include: inline-param
+    - include: inline-link
+    - include: inline-uicontrol
+    - include: inline-subsup
+    - include: inline-tm
+    - include: other-commands
+
+  # ── Block command pairs ────────────────────────────────────────────────────
+
+  block-commands:
+    - match: (\\)(list|endlist|table|endtable|raw|endraw|legalese|endlegalese|quotation|endquotation|omit|endomit|div|enddiv|details|enddetails|if|else|endif)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.control.qdoc
+
+  # ── Topic commands ─────────────────────────────────────────────────────────
+
+  topic-commands:
+    - match: (\\)(class|enum|example|externalpage|fn|group|headerfile|macro|module|namespace|page|property|typedef|typealias|variable|qmltype|qmlproperty|qmlmethod|qmlsignal|qmlenum|qmlattachedproperty|qmlattachedsignal|qmlmodule|qmlvaluetype|inqmlmodule|qmlclass|qmlsingletontype|qmlabstract|qmldefault|qmlenumeratorsfrom)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: storage.type.qdoc
+
+  # ── Semantic markers ───────────────────────────────────────────────────────
+
+  warning-commands:
+    - match: (\\)(warning|deprecated)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: invalid.deprecated.qdoc
+
+  note-commands:
+    - match: (\\)(note|preliminary)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+
+  heading-commands:
+    - match: (\\)(section[1-4]|title|subtitle)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: entity.name.tag.qdoc
+
+  # ── Code fence markers ─────────────────────────────────────────────────────
+
+  code-fence-commands:
+    - match: (\\)(code|badcode|qml|endcode|endqml|endbadcode)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.code-fence.qdoc
+
+  # ── Image commands ─────────────────────────────────────────────────────────
+
+  image-commands:
+    - match: (\\)(image|inlineimage)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.image.qdoc
+
+  # ── Inline formatting ──────────────────────────────────────────────────────
+  # Longer alternatives must appear before single-letter ones so that e.g.
+  # \bold is not consumed as \b followed by plain text "old".
+
+  inline-bold:
+    - match: (\\)(bold|b)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+
+  inline-italic:
+    - match: (\\)(e|i)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+
+  inline-code:
+    - match: (\\)(tt|c)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: string.other.code.qdoc
+
+  inline-underline:
+    - match: (\\)(underline)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+
+  inline-param:
+    - match: (\\)(a)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: variable.parameter.qdoc
+
+  inline-link:
+    - match: (\\)(l)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: markup.underline.link.qdoc
+
+  inline-uicontrol:
+    - match: (\\)(uicontrol)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+
+  inline-subsup:
+    - match: (\\)(sub|sup)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+
+  inline-tm:
+    - match: (\\)(tm)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: constant.other.trademark.qdoc
+
+  # ── All other known commands ───────────────────────────────────────────────
+
+  other-commands:
+    - match: (\\)(brief|caption|sa|keyword|target)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(since|internal|abstract|readonly|required|inherits|overload|reimp|relates|ingroup|inmodule|inheaderfile)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(threadsafe|reentrant|nonreentrant)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(nativetype|instantiates|modulestate|attribution|meta|compares|compareswith|notranslate|default|wrapper)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(cmakecomponent|cmakepackage|cmaketargetitem)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(codeline|include|snippet|quotefile|quotefromfile|printline|printto|printuntil|skipline|skipto|skipuntil)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(li|row|header|value|omitvalue)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(br|dots|o|span)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(nextpage|previouspage|startpage)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    - match: (\\)(toc|tocentry|generatelist|annotatedlist|sincelist|noautolist)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc
+    # Catch-all for user-defined macros and any unknown \command tokens
+    - match: (\\)([a-zA-Z][a-zA-Z0-9]*)(?![a-zA-Z0-9])
+      captures:
+        1: punctuation.definition.keyword.qdoc
+        2: keyword.other.qdoc

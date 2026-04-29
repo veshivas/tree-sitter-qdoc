@@ -1,0 +1,29 @@
+%YAML 1.2
+---
+# QML syntax extended with QDoc highlighting inside /*! ... */ blocks.
+#
+# Requires Sublime Text 4 (the `extends` key is not supported in ST3).
+#
+# Install alongside QDoc.sublime-syntax in the same Packages directory.
+# Apply manually to QML files: click the syntax name in the status bar
+# and choose "QML (QDoc)", or set it per-project (see SETUP.md).
+#
+# Requires the QML package from Package Control.
+#
+# https://github.com/veshivas/tree-sitter-qdoc
+
+name: QML (QDoc)
+version: 2
+scope: source.qml
+extends: Packages/QML/Support/QML.sublime-syntax
+
+contexts:
+  prototype:
+    - meta_prepend: true
+    - match: /\*!
+      scope: punctuation.definition.comment.begin.qdoc
+      embed: scope:text.qdoc#qdoc-inner
+      embed_scope: comment.block.documentation.qdoc
+      escape: \*/
+      escape_captures:
+        0: punctuation.definition.comment.end.qdoc

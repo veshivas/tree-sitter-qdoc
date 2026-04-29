@@ -1,0 +1,29 @@
+%YAML 1.2
+---
+# C++ syntax extended with QDoc highlighting inside /*! ... */ blocks.
+#
+# Requires Sublime Text 4 (the `extends` key is not supported in ST3).
+#
+# Install alongside QDoc.sublime-syntax in the same Packages directory.
+# Apply manually to C++ files: click the syntax name in the status bar
+# and choose "C++ (QDoc)", or set it per-project (see SETUP.md).
+#
+# https://github.com/veshivas/tree-sitter-qdoc
+
+name: C++ (QDoc)
+scope: source.c++
+extends: Packages/C++/C++.sublime-syntax
+
+contexts:
+  # Adding the /*! rule to prototype makes it apply to every context in
+  # the C++ syntax — including nested class bodies and block scopes —
+  # not just the top-level main context.
+  prototype:
+    - meta_prepend: true
+    - match: /\*!
+      scope: punctuation.definition.comment.begin.qdoc
+      embed: scope:text.qdoc#qdoc-inner
+      embed_scope: comment.block.documentation.qdoc
+      escape: \*/
+      escape_captures:
+        0: punctuation.definition.comment.end.qdoc
