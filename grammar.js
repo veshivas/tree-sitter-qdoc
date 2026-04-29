@@ -9,9 +9,11 @@ module.exports = grammar({
   extras: $ => [/\s/],  // Whitespace including newlines
 
   rules: {
-    source_file: $ => repeat($.comment),
+    source_file: $ => repeat(choice($.comment, $.line_comment)),
 
     comment: $ => $.block_comment,
+
+    line_comment: $ => token(seq('//', /.*/)),
 
     // QDoc comments require delimiters on separate lines
     block_comment: $ => prec.right(seq(

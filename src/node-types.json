@@ -447,7 +447,6 @@
   {
     "type": "source_file",
     "named": true,
-    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -455,6 +454,10 @@
       "types": [
         {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "line_comment",
           "named": true
         }
       ]
@@ -601,6 +604,10 @@
   {
     "type": "legalese",
     "named": false
+  },
+  {
+    "type": "line_comment",
+    "named": true
   },
   {
     "type": "link_hints",
